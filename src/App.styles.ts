@@ -13,7 +13,7 @@ export const Container = styled.div`
     }
 `;
 
-export const Info = styled.div`
+export const Info = styled.section`
     display: flex;
     flex-direction: column;
     width: auto;
@@ -34,6 +34,7 @@ export const InfoArea = styled.div`
     width: 100%;
     margin: 10px 0;
 
+    
     @media (max-width: 750px){
         display: flex;
         justify-content: space-around;
@@ -41,11 +42,11 @@ export const InfoArea = styled.div`
     }
 `;
 
-export const GridArea = styled.div`
+export const GridArea = styled.main`
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    background-color: red;
+
 
     @media (max-width: 750px){
         justify-content: center;
