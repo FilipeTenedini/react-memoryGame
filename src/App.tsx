@@ -1,28 +1,28 @@
 import { useEffect, useState } from 'react';
 import * as C from './App.styles'; 
+
 import logoImage from './assets/images/devmemory_logo.png';
 import btnRestartIcon from './assets/svgs/restart.svg';
+
 import { InfoItem } from './components/InfoItem';
 import { Button } from './components/button';
+import { GridItem } from './components/GridItem';
+
 import { GridItemType } from './types/GridItemType';
 import { items } from './items/items';
+
 
 const App = () => {
     const [playing, setPlaying] = useState<boolean>(false);
     const [timeElapsed, setTimeElapsed] = useState<number>(0);
     const [moveCount, setMoveCount] = useState<number>(0);
     const [shownCount, setShownCount] = useState<number>(0);
-    const [gridItem, setGridItems] = useState<GridItemType[]>([]);
+    const [gridItems, setGridItems] = useState<GridItemType[]>([]);
 
 
-    useEffect(() => resetAndCreateGrid(), []);
+    useEffect(() => resetGrid(), []);
 
-    const resetAndCreateGrid = () => {
-        // passo 1 - resetar o jogo
-        setTimeElapsed(0);
-        setMoveCount(0);
-        setShownCount(0);
-         
+    const createGrid = () => {
         // passo 2.1 - criar um grid vazio
         const temporaryGrid: GridItemType[] = [];
 
@@ -44,13 +44,28 @@ const App = () => {
                 }
                 temporaryGrid[position].item = i;
             }
-        }
-
+        } 
         // passo 2.3 - jogar no state
         setGridItems(temporaryGrid);
+    }
+
+    const resetGrid = () => {
+        // passo 1 - resetar o jogo
+        setTimeElapsed(0);
+        setMoveCount(0);
+        setShownCount(0);
+         
+        // passo 2 - criar o grid
+        createGrid();
+
         // passo 3 - começar o jogo
         setPlaying(true);
     }
+
+    const handleItemClick = (index: number) => {
+
+    }
+
 
     return (
         <C.Container>
@@ -64,13 +79,19 @@ const App = () => {
                     <InfoItem label="Movimentos" value="0" />
                 </C.InfoArea>
                 
-                <Button label="Reiniciar" icon={btnRestartIcon} onClick={resetAndCreateGrid}/>
+                <Button label="Reiniciar" icon={btnRestartIcon} onClick={resetGrid}/>
             
             </C.Info>
             
             <C.GridArea>
                 <C.Grid>
-
+                    {gridItems.map((item, index)=>(
+                        <GridItem 
+                            key={index}
+                            item={item}
+                            onClick={() => handleItemClick(index)}
+                        />
+                    ))}
                 </C.Grid>
             </C.GridArea>
 
