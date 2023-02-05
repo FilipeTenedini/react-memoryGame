@@ -24,11 +24,12 @@ const App = () => {
     useEffect(() => resetGrid(), []);
     useEffect(()=> {
         const timer = setInterval(() => {
-
             if(playing) setTimeElapsed(timeElapsed+1)
         }, 1000);
         return () => clearInterval(timer);
     }, [playing, timeElapsed]);
+
+
     const createGrid = () => {
         // passo 2.1 - criar um grid vazio
         const temporaryGrid: GridItemType[] = [];
@@ -71,13 +72,19 @@ const App = () => {
     }
 
     const handleItemClick = (index: number) => {
-
+        if (playing && index !== null && shownCount < 2){
+            let temporaryGrid = [...gridItems];
+            if (!temporaryGrid[index].permanentShown && !temporaryGrid[index].shown){
+                temporaryGrid[index].shown = true;
+                setShownCount(shownCount + 1)
+            }
+            setGridItems(temporaryGrid);
+        }
     }
 
 
     return (
         <C.Container>
-            {timeElapsed}
             <C.Info>
                 <C.LogoLink href="">
                     <img src={logoImage} width="200" alt="" />
