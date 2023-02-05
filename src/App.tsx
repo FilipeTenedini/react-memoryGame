@@ -29,7 +29,7 @@ const App = () => {
         for (let i = 0; i < (items.length * 2); i++) {
             temporaryGrid.push({
                 item: null,
-                shown: false,
+                shown: true,
                 permanentShown: false
             });
         }
