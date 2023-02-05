@@ -10,6 +10,7 @@ import { GridItem } from './components/GridItem';
 
 import { GridItemType } from './types/GridItemType';
 import { items } from './items/items';
+import { formatTimeElapsed } from './helpers/formatTimeElapsed';
 
 
 const App = () => {
@@ -21,7 +22,13 @@ const App = () => {
 
 
     useEffect(() => resetGrid(), []);
+    useEffect(()=> {
+        const timer = setInterval(() => {
 
+            if(playing) setTimeElapsed(timeElapsed+1)
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [playing, timeElapsed]);
     const createGrid = () => {
         // passo 2.1 - criar um grid vazio
         const temporaryGrid: GridItemType[] = [];
@@ -29,13 +36,14 @@ const App = () => {
         for (let i = 0; i < (items.length * 2); i++) {
             temporaryGrid.push({
                 item: null,
-                shown: true,
+                shown: false,
                 permanentShown: false
             });
         }
 
         // passo 2.2 - preencher o grid
         for (let w = 0; w < 2; w++){
+            
             for (let i = 0; i < items.length; i++){
                 let position = -1;
 
@@ -69,13 +77,14 @@ const App = () => {
 
     return (
         <C.Container>
+            {timeElapsed}
             <C.Info>
                 <C.LogoLink href="">
                     <img src={logoImage} width="200" alt="" />
                 </C.LogoLink>
 
                 <C.InfoArea>
-                    <InfoItem label="Tempo" value="00:00" />
+                    <InfoItem label="Tempo" value={formatTimeElapsed(timeElapsed)} />
                     <InfoItem label="Movimentos" value="0" />
                 </C.InfoArea>
                 
