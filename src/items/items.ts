@@ -1,9 +1,9 @@
-import androidSvg from './svgs/android.svg';
-import caminhao from './svgs/caminhao.svg';
-import disney from './svgs/disney.svg';
-import estrela from './svgs/estrela.svg';
-import gasolina from './svgs/gasolina.svg';
-import moto from './svgs/moto.svg';
+import androidSvg from '../assets/svgs/android.svg';
+import caminhao from '../assets/svgs/caminhao.svg';
+import disney from '../assets/svgs/disney.svg';
+import estrela from '../assets/svgs/estrela.svg';
+import gasolina from '../assets/svgs/gasolina.svg';
+import moto from '../assets/svgs/moto.svg';
 
 export const items = [
     {name: 'android', icon: androidSvg},
